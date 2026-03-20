@@ -2,7 +2,7 @@
 # install.sh — One-command installer for bedrock-cost-guardrail plugin
 set -euo pipefail
 
-REPO_URL="https://github.com/cost-guardrail-team/bedrock-cost-guardrail.git"
+REPO_URL="https://github.com/gonsoomoon-ml/bedrock-cost-guardrail.git"
 INSTALL_DIR="$HOME/.claude/plugins/bedrock-cost-guardrail"
 PLUGIN_PATH="$INSTALL_DIR/plugins/bedrock-cost-guardrail"
 SETTINGS_FILE="$HOME/.claude/settings.json"

@@ -1,7 +1,7 @@
 {
   "name": "bedrock-cost-guardrail",
   "description": "Per-user Bedrock cost monitoring with automatic usage blocking",
-  "owner": { "name": "cost-guardrail-team" },
+  "owner": { "name": "gonsoomoon-ml" },
   "plugins": [
     {
       "name": "bedrock-cost-guardrail",

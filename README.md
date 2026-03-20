@@ -4,11 +4,11 @@ Claude Code plugin that monitors per-IAM-user Amazon Bedrock API costs and block
 
 ## Install
 
-    curl -sSL https://raw.githubusercontent.com/cost-guardrail-team/bedrock-cost-guardrail/main/install.sh | bash
+    curl -sSL https://raw.githubusercontent.com/gonsoomoon-ml/bedrock-cost-guardrail/main/install.sh | bash
 
 Or clone and run manually:
 
-    git clone https://github.com/cost-guardrail-team/bedrock-cost-guardrail.git ~/.claude/plugins/bedrock-cost-guardrail
+    git clone https://github.com/gonsoomoon-ml/bedrock-cost-guardrail.git ~/.claude/plugins/bedrock-cost-guardrail
     bash ~/.claude/plugins/bedrock-cost-guardrail/install.sh
 
 ## Prerequisites
@@ -55,4 +55,4 @@ Or clone and run manually:
 
 ## Source
 
-Development repo and detailed documentation: [cost-guardrail-claude-code-bedrock](https://github.com/cost-guardrail-team/cost-guardrail-claude-code-bedrock)
+Development repo and detailed documentation: [cost-guardrail-claude-code-bedrock](https://github.com/gonsoomoon-ml/cost-guardrail-claude-code-bedrock)
