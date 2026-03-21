@@ -69,7 +69,7 @@ install.sh가 다음을 자동으로 처리합니다:
 - 세션 시작 시, 그리고 주기적으로 Bedrock 비용을 확인합니다
 - CloudWatch Logs에서 모델별 토큰 단가로 비용을 계산합니다 (input, output, cache read, cache write)
 - 설정된 임계값에 도달하면 사용을 차단합니다 (hard block)
-- 모든 에러 상황에서 사용을 허용합니다 (fail-open) — 인프라 문제로 개발이 중단되지 않습니다
+- 모든 에러 상황에서 사용을 차단합니다 (fail-closed) — 비용 확인이 불가능한 상태에서의 무제한 사용을 방지합니다
 
 ## 문제 해결
 
