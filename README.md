@@ -1,58 +1,78 @@
-# Bedrock Cost Guardrail
+# Amazon Bedrock Cost Guardrail Plugin for Claude Code
 
-Claude Code plugin that monitors per-IAM-user Amazon Bedrock API costs and blocks usage when a spending threshold is reached.
+IAM 사용자별 Amazon Bedrock API 비용을 모니터링하고, 설정된 임계값에 도달하면 Claude Code 사용을 자동 차단하는 플러그인입니다.
 
-## Install
+macOS, Linux, Windows (WSL/Git Bash)에서 동작합니다. 플랫폼 관련 문제가 발생하면 관리자에게 문의하세요.
 
-    curl -sSL https://raw.githubusercontent.com/gonsoomoon-ml/bedrock-cost-guardrail/main/install.sh | bash
+## 사전 요구사항
 
-Or clone and run manually:
+- [Claude Code](https://claude.ai/code) 설치됨
+- AWS CLI v2 설정됨 (관리자가 설정해야 합니다)
+- Bedrock Model Invocation Logging 활성화됨 (관리자가 설정해야 합니다)
 
-    git clone https://github.com/gonsoomoon-ml/bedrock-cost-guardrail.git ~/.claude/plugins/bedrock-cost-guardrail
-    bash ~/.claude/plugins/bedrock-cost-guardrail/install.sh
+## 설치
 
-## Prerequisites
+    bash install.sh
 
-- [Claude Code](https://claude.ai/code) installed
-- AWS CLI v2 configured with permissions: `logs:StartQuery`, `logs:GetQueryResults`, `sts:GetCallerIdentity`
-- Bedrock Model Invocation Logging enabled (CloudWatch Logs)
-- jq, bc installed
+install.sh가 다음을 자동으로 처리합니다:
+- 사전 요구사항 점검 (jq, awk, AWS CLI)
+- 차단 훅 등록 (~/.claude/settings.json)
+- 플러그인 검증
 
-## Usage
+## 사용법
 
-### Check current cost
+### 현재 비용 확인
 
     /bedrock-cost-guardrail:cost-status
 
-### View or change settings
+![cost-status 실행 예시](img/cost-status.png)
+
+### 설정 조회
 
     /bedrock-cost-guardrail:cost-config show
-    /bedrock-cost-guardrail:cost-config set check_interval 5
-    /bedrock-cost-guardrail:cost-config set period daily
 
-## How It Works
+![cost-config 실행 예시](img/cost-config.png)
 
-- Checks estimated Bedrock cost at session start and every Nth prompt (default: 10)
-- Calculates cost from CloudWatch Logs using per-model token pricing (input, output, cache read, cache write)
-- Blocks usage (hard block) when the configured spending threshold is reached
-- Fails open on all errors — infrastructure issues never block developers
+> **참고:** 설정 변경은 관리자가 관리합니다. 직접 변경하지 마세요.
 
-## Default Settings
+### 임계값 초과 시 차단
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| threshold_usd | $50 | Spending limit before blocking |
-| period | monthly | Cost accumulation window |
-| check_interval | 10 | Check cost every Nth prompt |
-| timezone | UTC | Period boundary timezone |
+비용이 임계값에 도달하면 Claude Code 사용이 자동으로 차단됩니다.
 
-## Uninstall
+![임계값 초과 시 차단 화면](img/block_claude.png)
 
-1. Remove hooks from `~/.claude/settings.json` (delete the `SessionStart` and `UserPromptSubmit` entries referencing `check-cost.sh`)
-2. Uninstall plugin: `claude plugin uninstall bedrock-cost-guardrail` (if supported)
-3. Remove marketplace: `claude plugin marketplace remove bedrock-cost-guardrail` (if supported)
-4. Remove the plugin directory: `rm -rf ~/.claude/plugins/bedrock-cost-guardrail`
+## 동작 방식
 
-## Source
+- 세션 시작 시, 그리고 매 N번째 프롬프트마다 Bedrock 비용을 확인합니다 (기본: 10)
+- CloudWatch Logs에서 모델별 토큰 단가로 비용을 계산합니다 (input, output, cache read, cache write)
+- 설정된 임계값에 도달하면 사용을 차단합니다 (hard block)
+- 모든 에러 상황에서 사용을 허용합니다 (fail-open) — 인프라 문제로 개발이 중단되지 않습니다
 
-Development repo and detailed documentation: [cost-guardrail-claude-code-bedrock](https://github.com/gonsoomoon-ml/cost-guardrail-claude-code-bedrock)
+## 기본 설정
+
+| 설정 | 기본값 | 설명 |
+|------|--------|------|
+| threshold_usd | $180 | 월간 차단 임계값 (관리자만 변경 가능) |
+| period | monthly | 비용 집계 기간 |
+| check_interval | 10 | 매 N번째 프롬프트마다 비용 확인 |
+| timezone | UTC | 기간 경계 시간대 |
+
+## 문제 해결
+
+**비용이 항상 $0으로 표시됩니다.**
+→ 관리자에게 Bedrock Model Invocation Logging 활성화 여부를 확인하세요.
+
+**임계값을 초과해도 차단되지 않습니다.**
+→ `bash install.sh`를 다시 실행하세요.
+
+**오래된 데이터가 표시됩니다.**
+→ `rm /tmp/claude-cost-guardrail-*` 실행 후 재시도하세요.
+
+## 삭제
+
+1. `~/.claude/settings.json`에서 `check-cost.sh`를 참조하는 `SessionStart`, `UserPromptSubmit` 훅을 삭제합니다
+2. 플러그인 디렉토리를 삭제합니다: `rm -rf ~/.claude/plugins/bedrock-cost-guardrail`
+
+## 소스
+
+개발 저장소 및 상세 문서: [cost-guardrail-claude-code-bedrock](https://github.com/gonsoomoon-ml/cost-guardrail-claude-code-bedrock)
