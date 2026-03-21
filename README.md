@@ -47,12 +47,11 @@ install.sh가 다음을 자동으로 처리합니다:
 |------|--------|------|
 | threshold_usd | $180 | 월간 차단 임계값 (관리자만 변경 가능) |
 | period | monthly | 비용 집계 기간 |
-| check_interval | 10 | 매 N번째 프롬프트마다 비용 확인 |
 | timezone | UTC | 기간 경계 시간대 |
 
 ## 동작 방식
 
-- 세션 시작 시, 그리고 매 N번째 프롬프트마다 Bedrock 비용을 확인합니다 (기본: 10)
+- 세션 시작 시, 그리고 주기적으로 Bedrock 비용을 확인합니다
 - CloudWatch Logs에서 모델별 토큰 단가로 비용을 계산합니다 (input, output, cache read, cache write)
 - 설정된 임계값에 도달하면 사용을 차단합니다 (hard block)
 - 모든 에러 상황에서 사용을 허용합니다 (fail-open) — 인프라 문제로 개발이 중단되지 않습니다
@@ -70,8 +69,7 @@ install.sh가 다음을 자동으로 처리합니다:
 
 ## 삭제
 
-1. `~/.claude/settings.json`에서 `check-cost.sh`를 참조하는 `SessionStart`, `UserPromptSubmit` 훅을 삭제합니다
-2. 플러그인 디렉토리를 삭제합니다: `rm -rf ~/.claude/plugins/bedrock-cost-guardrail`
+    bash uninstall.sh
 
 ## 소스
 
