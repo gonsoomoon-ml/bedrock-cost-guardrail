@@ -68,6 +68,9 @@ install.sh가 다음을 자동으로 처리합니다:
 **임계값을 초과해도 차단되지 않습니다.**
 → `bash install.sh`를 다시 실행하세요.
 
+**로그 그룹을 찾을 수 없습니다.**
+→ AWS 리전이 올바른지 확인하세요: `export AWS_REGION=us-west-2` (관리자에게 리전을 확인하세요)
+
 **오래된 데이터가 표시됩니다.**
 → `rm /tmp/claude-cost-guardrail-*` 실행 후 재시도하세요.
 

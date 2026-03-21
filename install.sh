@@ -141,7 +141,7 @@ if aws logs describe-log-groups \
 else
   echo "  [FAIL] Log group '$LOG_GROUP' not found"
   err "CloudWatch log group '$LOG_GROUP' does not exist" \
-      "Ask your admin to enable Bedrock Model Invocation Logging.\n    (Log group: $LOG_GROUP)"
+      "Ask your admin to enable Bedrock Model Invocation Logging.\n    (Log group: $LOG_GROUP)\n    If the log group exists in a different region, set: export AWS_REGION=<region>"
 fi
 
 echo ""
