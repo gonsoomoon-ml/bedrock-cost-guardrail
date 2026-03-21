@@ -16,10 +16,8 @@ macOS, Linux, Windows (WSL/Git Bash)에서 동작합니다. 플랫폼 관련 문
 
 > **터미널 열기:** macOS → Terminal 앱, Windows → Git Bash 앱, Linux → Terminal
 
-    git clone https://github.com/gonsoomoon-ml/bedrock-cost-guardrail.git
-    cd bedrock-cost-guardrail
     export AWS_REGION=<관리자에게 확인>    # Bedrock Model Invocation Logging이 활성화된 리전 (예: us-east-1, us-west-2, ap-northeast-2)
-    bash install.sh
+    curl -fsSL https://raw.githubusercontent.com/gonsoomoon-ml/bedrock-cost-guardrail/main/install.sh | bash
 
 ![install.sh 실행 예시](img/install_shell_bedrock_cost_guardrail.png)
 
