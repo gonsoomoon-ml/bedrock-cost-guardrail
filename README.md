@@ -14,6 +14,8 @@ macOS, Linux, Windows (WSL/Git Bash)에서 동작합니다. 플랫폼 관련 문
 
 ### 1. 설치
 
+> **터미널 열기:** macOS → Terminal 앱, Windows → Git Bash 앱, Linux → Terminal
+
     git clone https://github.com/gonsoomoon-ml/bedrock-cost-guardrail.git
     cd bedrock-cost-guardrail
     bash install.sh
