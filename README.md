@@ -85,7 +85,7 @@ install.sh가 다음을 자동으로 처리합니다:
 
 ## 삭제
 
-    bash uninstall.sh
+    bash ~/.claude/plugins/bedrock-cost-guardrail/uninstall.sh
 
 ## 소스
 
