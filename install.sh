@@ -37,7 +37,7 @@ err() {
   if [[ -n "${2:-}" ]]; then
     echo "" >&2
     echo "  How to fix:" >&2
-    echo "    $2" >&2
+    echo -e "    $2" >&2
   fi
   echo "" >&2
   echo "  After fixing, run again: bash install.sh" >&2
