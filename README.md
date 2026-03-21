@@ -28,11 +28,15 @@ install.sh가 다음을 자동으로 처리합니다:
 - 차단 훅 등록 (~/.claude/settings.json)
 - 플러그인 검증
 
+설치 후 Claude Code에서 `/cos`를 입력하면 플러그인 명령을 확인할 수 있습니다:
+
+![플러그인 명령 목록](img/show_plugin_prompt.png)
+
 ### 2. 비용 확인
 
     /bedrock-cost-guardrail:cost-status
 
-![cost-status 실행 예시](img/cost-status.png)
+![cost-status 실행 예시](img/bedrock-cost-status.png)
 
 ### 3. 임계값 초과 시
 
@@ -46,7 +50,7 @@ install.sh가 다음을 자동으로 처리합니다:
 
     /bedrock-cost-guardrail:cost-config show
 
-![cost-config 실행 예시](img/cost-config.png)
+![cost-config 실행 예시](img/bedrock-cost-configure.png)
 
 > **참고:** 설정 변경은 관리자가 관리합니다. 직접 변경하지 마세요.
 
@@ -57,6 +61,10 @@ install.sh가 다음을 자동으로 처리합니다:
 | timezone | UTC | 기간 경계 시간대 |
 
 ## 동작 방식
+
+세션 시작 시 비용 인식 컨텍스트가 자동으로 활성화됩니다:
+
+![cost-awareness 실행 예시](img/bedrock-cost-awareness.png)
 
 - 세션 시작 시, 그리고 주기적으로 Bedrock 비용을 확인합니다
 - CloudWatch Logs에서 모델별 토큰 단가로 비용을 계산합니다 (input, output, cache read, cache write)
