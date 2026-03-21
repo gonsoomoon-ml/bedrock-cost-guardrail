@@ -42,7 +42,7 @@ install.sh가 다음을 자동으로 처리합니다:
 
 비용이 임계값($180/월)에 도달하면 자동으로 차단됩니다.
 
-![임계값 초과 시 차단 화면](img/block_claude.png)
+![임계값 초과 시 차단 화면](img/block_sesseion_start.png)
 
 ## 기본 설정
 
