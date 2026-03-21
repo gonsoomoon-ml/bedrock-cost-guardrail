@@ -10,7 +10,9 @@ macOS, Linux, Windows (WSL/Git Bash)에서 동작합니다. 플랫폼 관련 문
 - AWS CLI v2 설정됨 (관리자가 설정해야 합니다)
 - Bedrock Model Invocation Logging 활성화됨 (관리자가 설정해야 합니다)
 
-## 설치
+## 빠른 시작
+
+### 1. 설치
 
     bash install.sh
 
@@ -19,15 +21,21 @@ install.sh가 다음을 자동으로 처리합니다:
 - 차단 훅 등록 (~/.claude/settings.json)
 - 플러그인 검증
 
-## 사용법
-
-### 현재 비용 확인
+### 2. 비용 확인
 
     /bedrock-cost-guardrail:cost-status
 
 ![cost-status 실행 예시](img/cost-status.png)
 
-### 설정 조회
+### 3. 임계값 초과 시
+
+비용이 임계값($180/월)에 도달하면 자동으로 차단됩니다.
+
+![임계값 초과 시 차단 화면](img/block_claude.png)
+
+## 기본 설정
+
+설정을 조회하려면:
 
     /bedrock-cost-guardrail:cost-config show
 
@@ -35,11 +43,12 @@ install.sh가 다음을 자동으로 처리합니다:
 
 > **참고:** 설정 변경은 관리자가 관리합니다. 직접 변경하지 마세요.
 
-### 임계값 초과 시 차단
-
-비용이 임계값에 도달하면 Claude Code 사용이 자동으로 차단됩니다.
-
-![임계값 초과 시 차단 화면](img/block_claude.png)
+| 설정 | 기본값 | 설명 |
+|------|--------|------|
+| threshold_usd | $180 | 월간 차단 임계값 (관리자만 변경 가능) |
+| period | monthly | 비용 집계 기간 |
+| check_interval | 10 | 매 N번째 프롬프트마다 비용 확인 |
+| timezone | UTC | 기간 경계 시간대 |
 
 ## 동작 방식
 
@@ -47,15 +56,6 @@ install.sh가 다음을 자동으로 처리합니다:
 - CloudWatch Logs에서 모델별 토큰 단가로 비용을 계산합니다 (input, output, cache read, cache write)
 - 설정된 임계값에 도달하면 사용을 차단합니다 (hard block)
 - 모든 에러 상황에서 사용을 허용합니다 (fail-open) — 인프라 문제로 개발이 중단되지 않습니다
-
-## 기본 설정
-
-| 설정 | 기본값 | 설명 |
-|------|--------|------|
-| threshold_usd | $180 | 월간 차단 임계값 (관리자만 변경 가능) |
-| period | monthly | 비용 집계 기간 |
-| check_interval | 10 | 매 N번째 프롬프트마다 비용 확인 |
-| timezone | UTC | 기간 경계 시간대 |
 
 ## 문제 해결
 
