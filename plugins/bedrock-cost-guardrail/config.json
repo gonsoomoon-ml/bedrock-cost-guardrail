@@ -36,7 +36,7 @@
       "cache_write_per_1k": 0.001
     }
   },
-  "threshold_usd": 180,
+  "threshold_usd": 50,
   "period": "monthly",
   "check_interval": 10,
   "timezone": "UTC",
